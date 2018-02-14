@@ -20,7 +20,7 @@ def get_info(user_id):
         return ('Invalid GitHub Username')
     
     li = []
-    for item in response_json:  
+    for item in response_json1:  
         api_url_2 = requests.get('https://api.github.com/repos/' + user_id + '/' + item['name'] + '/commits')
         response_json2 = json.loads(api_url_2.text)
         if 'name' in api_url_2.text:
