@@ -7,28 +7,26 @@ Created on Tue Feb 13 18:03:11 2018
 """
 
 import json
-import urllib.request as urllib2
+import requests
 
 
 def get_info(user_id):
-    api_url = 'https://api.github.com/users/' + user_id +'/repos'
-    url_req = urllib2.Request(api_url, headers={ 'User-Agent': 'Safari/537.36', 'Content-Type': 'application/json'} , method='GET')
+    api_url1 = requests.get('https://api.github.com/users/' + user_id + '/repos')
+    response_json1 = json.loads(api_url1.text)
+    
     try:
-        response = urllib2.urlopen(url_req).read().decode('utf8')
+        response_json1[0]['name']
     except: 
         return ('Invalid GitHub Username')
-    response_json = json.loads(response) 
+    
     li = []
     for item in response_json:  
-        try:
-            api_url_2 = 'https://api.github.com/repos/' + user_id + '/' +item['name'] + '/commits'
-            url_req_2 = urllib2.Request(api_url_2, headers={ 'User-Agent': 'Safari/537.36' , 'Content-Type': 'application/json'} , method='GET')
-            response_2 = urllib2.urlopen(url_req_2).read().decode('utf8') 
-            response_json_2 = json.loads(response_2)
-            a= (len(response_json_2))
-        except:
+        api_url_2 = requests.get('https://api.github.com/repos/' + user_id + '/' + item['name'] + '/commits')
+        response_json2 = json.loads(api_url_2.text)
+        if 'name' in api_url_2.text:
+            a = (len(response_json2))
+        else:
             a= 0
-
         li.append((item['name'],a))
     return li
 
