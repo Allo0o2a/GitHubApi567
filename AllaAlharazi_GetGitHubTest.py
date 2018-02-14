@@ -14,7 +14,7 @@ from AllaAlharazi_GetGitHub import get_info
 class TestGetInfo(unittest.TestCase):
     
     def testValidUser(self):
-        self.assertEqual(get_info('allo0o2a'), 'HEEERE OUTPUT after fixing API' )
+        self.assertEqual(get_info('allo0o2a'), '[('AllaAlharazi_SSW467', 0), ('GitHubApi567', 13), ('Triangle567', 6)]')
 
     def testInvalidUser(self):
         self.assertEqual(get_info('jsbfjejknejk'), 'Invalid GitHub Username')
