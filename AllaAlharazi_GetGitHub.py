@@ -23,10 +23,16 @@ def get_info(user_id):
     for item in response_json1:  
         api_url_2 = requests.get('https://api.github.com/repos/' + user_id + '/' + item['name'] + '/commits')
         response_json2 = json.loads(api_url_2.text)
-        if 'name' in api_url_2.text:
-            a = (len(response_json2))
-        else:
-            a= 0
+        
+        count = 0
+        #Empty Repo is dict not list.
+        if isinstance (response_json2,list):
+            for i in response_json2:
+                try:
+                    i['commit']
+                    count+=1
+                except KeyError: 
+                    pass
         li.append((item['name'],a))
     return li
 
