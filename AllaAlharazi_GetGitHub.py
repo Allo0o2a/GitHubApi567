@@ -33,7 +33,7 @@ def get_info(user_id):
                     count+=1
                 except KeyError: 
                     pass
-        li.append((item['name'],a))
+        li.append((item['name'],count))
     return li
 
 def main():
